@@ -1,12 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     './src/app/**/*.{ts,tsx,js,jsx}',
-    './src/components/**/*.{ts,tsx,js,jsx}',
   ],
   theme: {
     extend: {
       colors: {
+        secondary: '#ECECEC',
+        tertiary: 'rgba(0, 0, 0, 0.2)',
+        quaternary: '#F1F1F1',
       },
       fontFamily: {
         "neue-met": ['Neue Metana', 'sans-serif'],
