@@ -65,7 +65,6 @@ export function ConsultationModal(
 
   useEffect(() => {
     if (initialValues) {
-      console.log("🚀 ~ useEffect ~ initialValues:", initialValues);
       reset({
         ...initialValues,
       });
@@ -94,7 +93,6 @@ export function ConsultationModal(
   }, [initialValues?.inspiration, isOpen]);
 
   const onSubmit = async (data: ConsultationModalFormData) => {
-    console.log("🚀 ~ onSubmit ~ data:", data);
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
       if (key === "inspiration") {
@@ -337,7 +335,6 @@ export function ConsultationModal(
                           options={unitsOptions}
                           value={selectedOption}
                           onChange={(val) => {
-                            console.log("🚀 ~ val:", val);
 
                             const valuesArray =
                               val && Array.isArray(val)

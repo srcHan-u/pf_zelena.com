@@ -39,7 +39,6 @@ export default async function Home() {
       return recs.map((r) => ({ ...r.fields }));
     })
   );
-  console.log("🚀 ~ Home ~ events:", events)
 
   const selectCityOptions = events
     .filter((e) => (e.openFor as string).toLowerCase() !== "closed")
@@ -59,8 +58,6 @@ export default async function Home() {
         { location: e.location as string, date: e.openDateTo as string },
       ]),
     }));
-
-  console.log("🚀 ~ Home ~ events:", heroEvents);
 
   return (
     <div className="flex flex-col min-h-screen">

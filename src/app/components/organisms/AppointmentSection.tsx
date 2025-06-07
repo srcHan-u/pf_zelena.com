@@ -6,6 +6,7 @@ import { ButtonUI } from "@components/atoms/Button";
 import { useModal } from "@/app/context/ModalContext";
 import { Disclosure } from "@headlessui/react";
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
+import { useEffect, useState } from "react";
 
 const steps = [
   {
@@ -70,7 +71,13 @@ const steps = [
 
 export function AppointmentSection() {
   const { open } = useModal();
+  const [isMounted, setIsMounted] = useState(false);
+
   const isMobile = useMediaQuery("(max-width: 640px)");
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <section
@@ -83,31 +90,32 @@ export function AppointmentSection() {
 
           <div
             className="mt-12
-          grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4
+          grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4
           items-start justify-items-center
           gap-10 xl:gap-[38px] "
           >
-            {steps.map((step, idx) => (
-              <Disclosure
-                key={step.id}
-                defaultOpen={!isMobile || step.id === 1}
-              >
-                {({ open: isOpen }) => (
-                  <div className="flex flex-col text-left md:text-center w-[245px] relative">
-                    <AppointmentCard
-                      stepN={step.id}
-                      title={step.title}
-                      description={step.description}
-                      isOpen={isOpen}
-                    />
+            {isMounted &&
+              steps.map((step, idx) => (
+                <Disclosure
+                  key={step.id}
+                  defaultOpen={isMobile ? step.id === 1 : true}
+                >
+                  {({ open: isOpen }) => (
+                    <div className="flex flex-col text-left md:text-center w-[245px] relative">
+                      <AppointmentCard
+                        stepN={step.id}
+                        title={step.title}
+                        description={step.description}
+                        isOpen={isOpen}
+                      />
 
-                    {idx < steps.length - 1 && (
-                      <ArrowIcon className="hidden lg:block md:absolute text-gray-300 top-1 right-[-30%]" />
-                    )}
-                  </div>
-                )}
-              </Disclosure>
-            ))}
+                      {idx < steps.length - 1 && (
+                        <ArrowIcon className="hidden xl:block md:absolute text-gray-300 top-1 right-[-30%]" />
+                      )}
+                    </div>
+                  )}
+                </Disclosure>
+              ))}
           </div>
 
           <div className="mt-12 sm:mt-18 md:mt-22 xl:mt-26 flex justify-center">
