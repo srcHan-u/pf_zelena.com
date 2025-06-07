@@ -106,39 +106,28 @@
     -webkit-tap-highlight-color: transparent;
   }
 }
+@utility container {
+  margin-inline: auto;
+  inline-size: 100%;
+  padding-inline: 1rem;
 
-@layer utilities {
-  @utility container {
-    margin-inline: auto;
-    inline-size: 100%;
-    padding-inline: 1rem;
+  @media screen and (min-width: 640px) {
+    padding-inline: 2rem;
   }
 
-  @screen sm {
-    @utility container {
-      padding-inline: 2rem;
-    }
+  @media screen and (min-width: 1024px) {
+    inline-size: 1024px;
+    padding-inline: 4rem;
   }
 
-  @screen lg {
-    @utility container {
-      inline-size: 1024px;
-      padding-inline: 4rem;
-    }
+  @media screen and (min-width: 1280px) {
+    inline-size: 1280px;
+    padding-inline: 5rem;
   }
 
-  @screen xl {
-    @utility container {
-      inline-size: 1280px;
-      padding-inline: 5rem;
-    }
-  }
-
-  @screen 2xl {
-    @utility container {
-      inline-size: 1440px;
-      padding-inline: 6rem;
-    }
+  @media screen and (min-width: 1536px) {
+    inline-size: 1440px;
+    padding-inline: 6rem;
   }
 }
 
