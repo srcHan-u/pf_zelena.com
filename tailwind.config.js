@@ -3,7 +3,11 @@ console.log("Loading Tailwind CSS configuration...");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
-  content: ["./src/app/**/*.{ts,tsx,js,jsx}"],
+  content: [
+    "./src/**/*.{ts,tsx,js,jsx}",
+    // Include all files in the src directory with specified extensions
+    // You can add more directories or file patterns as needed
+  ],
   theme: {
     container: {
       center: true,
