@@ -4,7 +4,8 @@ module.exports = {
   content: ["./src/app/**/*.{ts,tsx,js,jsx}"],
   theme: {
     container: {
-      margin: "0 auto",
+      "bg-color": "#090",
+      mx: "auto",
       center: true,
       padding: {
         DEFAULT: "1rem",
