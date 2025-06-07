@@ -1,3 +1,5 @@
+console.log("Loading Tailwind CSS configuration...");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
