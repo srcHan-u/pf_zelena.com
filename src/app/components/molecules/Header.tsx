@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -6,7 +7,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 const styles = {
   header: {
     default:
-      "flex items-center justify-start w-full bg-white h-[60px] px-4 relative",
+      "flex items-center justify-start w-full bg-white h-[60px] px-4 sticky top-0 z-50 shadow-md transition-colors duration-200",
     darkTheme: "dark:bg-black",
     media: {
       sm: "sm:justify-center",
@@ -21,7 +22,7 @@ const styles = {
   },
   link: {
     default:
-      "text-black hover:text-gray-600 transition-colors duration-200 text-[12px]",
+      "text-black hover:text-gray-600 transition-colors duration-200 text-[28px]",
     darkTheme: "dark:text-white dark:hover:text-gray-300",
     media: {
       sm: "sm:text-[14px]",
@@ -37,25 +38,27 @@ const styles = {
     `${isOpen ? "block" : "hidden"
     } sm:hidden absolute inset-x-0 top-full h-[calc(100vh-60px)] bg-white dark:bg-black`,
   mobileNav: {
-    default: "flex flex-col space-y-4 p-4 font-work font-semibold uppercase",
+    default:
+      "flex flex-col items-center space-y-4 p-4 font-work font-semibold uppercase",
   },
 };
 
 const links = [
-  { href: "#pricing", label: "Pricing" },
-  { href: "#portfolio", label: "Portfolio" },
+  { href: "#portfolio", label: "Pricing" },
+  { href: "#flash-designs", label: "Designs" },
   { href: "#contacts", label: "Contacts" },
   { href: "#faq", label: "FAQ" },
-]
+  { href: "#events", label: "Events" },
+];
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 640px)");
 
   useEffect(() => {
     if (!isMobile) {
-      setIsOpen(false)
+      setIsOpen(false);
     }
-  }, [isMobile])
+  }, [isMobile]);
 
   return (
     <header
@@ -84,25 +87,25 @@ export function Header() {
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
-      <div
+      <nav
         id="mobile-menu"
         aria-hidden={!isOpen}
         className={styles.mobileMenu(isOpen)}
       >
-        <nav className={`${styles.mobileNav.default}`}>
+        <ul className={`${styles.mobileNav.default}`}>
           {links.map((link) => (
-            <a
-              onClick={() => setIsOpen(false)}
-              className={`${styles.link.default} ${styles.link.darkTheme} ${styles.link.media.sm}`}
-              key={link.href}
-              href={link.href}
-
-            >
-              {link.label}
-            </a>
+            <li key={link.href}>
+              <a
+                onClick={() => setIsOpen(false)}
+                className={`${styles.link.default} ${styles.link.darkTheme} ${styles.link.media.sm}`}
+                href={link.href}
+              >
+                {link.label}
+              </a>
+            </li>
           ))}
-        </nav>
-      </div>
+        </ul>
+      </nav>
     </header>
   );
 }
