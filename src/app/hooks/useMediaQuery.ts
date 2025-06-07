@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 
 /**
@@ -39,6 +40,15 @@ import { useState, useEffect } from "react";
 // }
 
 export function useMediaQuery(query: string): boolean {
+  // Initial check to set the state based on the current window size
+  // const getInitial = () => {
+  //   if (window) {
+  //     return window.matchMedia(query).matches;
+  //   }
+  //   return false;
+  // };
+  // const initialMatches = getInitial();
+
   const [matches, setMatches] = useState(false);
 
   useEffect(() => {

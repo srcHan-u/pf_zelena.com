@@ -30,39 +30,6 @@ export function HeroSection({
             className="absolute inset-0 w-full h-full object-cover block"
           />
         </div>
-        {/* <div className="relative w-full md:w-1/2 h-screen bg-black">
-          <motion.div
-            className="absolute inset-0"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            <Image
-              src="/images/hero-image-left.png"
-              alt="левый фон"
-              fill
-              priority
-              className="object-cover object-left"
-            />
-          </motion.div>
-        </div>
-
-        <div className="relative w-full md:w-1/2 h-screen bg-black">
-          <motion.div
-            className="absolute inset-0"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            <Image
-              src="/images/hero-image-right.png"
-              alt="правый фон"
-              fill
-              priority
-              className="object-cover object-right"
-            />
-          </motion.div>
-        </div> */}
       </div>
 
       <div className="absolute inset-0 bg-black/50" />
@@ -109,18 +76,6 @@ export function HeroSection({
             <span className="text-[10px] sm:text-[12px] md:text-[14px] text-white/30 uppercase font-work">
               Bookings / events
             </span>
-            {/* <motion.div
-              className=""
-              initial={{ x: "100%" }}
-              animate={{ x: "-100%" }}
-              transition={{
-                duration: 20,
-                ease: "linear",
-                repeat: Infinity,
-                repeatType: "loop",
-              }}
-            >
-            </motion.div> */}
 
             <Marquee speed={40}>
               <span className="text-white text-xs uppercase space-x-4 flex gap-2 items-center mt-2 font-work text-[10px] sm:text-[12px] md:text-[14px]">
@@ -130,7 +85,7 @@ export function HeroSection({
           </div>
         </div>
         <motion.button
-          className="text-white absolute bottom-20 left-1/2 transform -translate-x-1/2"
+          className="text-white mt-18"
           onClick={() => {
             const nextSection = document.getElementById("about");
             if (nextSection) {

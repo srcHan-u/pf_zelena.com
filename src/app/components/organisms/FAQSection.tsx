@@ -602,7 +602,7 @@ const categories: Category[] = [
 ];
 
 export function FAQSection() {
-  const [activeCat, setActiveCat] = useState<string>(categories[0].id);
+  const [activeCat, setActiveCat] = useState<string | null>(null);
 
   return (
     <section id="faq" className="py-[52px] md:py-[92px]">
