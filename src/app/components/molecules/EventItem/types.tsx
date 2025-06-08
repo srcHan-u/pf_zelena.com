@@ -4,6 +4,7 @@ export type EventT = {
   openDateTo: string;
   location: string;
   studio: string;
+  status: "open_with_date" | "open_without_date" | "closed" | "soon";
   openFor:
   | "Yanjuary"
   | "February"
@@ -16,7 +17,5 @@ export type EventT = {
   | "September"
   | "October"
   | "November"
-  | "December"
-  | "Closed"
-  | "Soon";
+  | "December";
 };

@@ -14,9 +14,9 @@ const steps = [
     title: "Consultation",
     description: (
       <>
-        Fill out the booking form — describe your tattoo idea, preferred
+        Fill out the booking form. Describe your tattoo idea, preferred
         placement, size, style, and the dates that work best for you. Please
-        attach 1–3 references — it can be tattoos, sketches, or anything you
+        attach 1–3 references. It can be tattoos, sketches, or anything you
         like. This really helps me feel your idea.
         <br />
         <br />
@@ -31,7 +31,7 @@ const steps = [
     description: (
       <>
         To confirm your appointment, a $100 deposit is required. You can send it
-        via e-transfer — the deposit is included in the total price.
+        via e-transfer, and the deposit go towards in the final price.
         <br />
         <br />
         If you need to cancel or reschedule, just let me know at least 72 hours
@@ -47,12 +47,12 @@ const steps = [
     title: "Drawing Design",
     description: (
       <>
-        Design preparation is free. Usually, I create a few design options 1 day
-        before the session. I’ll send them as Photoshop mockups, so you can see
-        how the tattoo might look on your body in real life.
+        Design preparation is free. Usually, I create a few designs 1 day before
+        the session. I’ll send them as Photoshop mockups, so you can see how the
+        tattoo might look on your body in real life.
         <br />
         <br />
-        Don’t worry — we’ll go over everything together and adjust it until it
+        Don’t worry, we’ll go over everything together and adjust it until it
         feels just yours.
       </>
     ),
@@ -62,7 +62,7 @@ const steps = [
     title: "Day of Session",
     description: (
       <>
-        Bring a good mood, a favorite snack, lunch, water, or a book — whatever
+        Bring a good mood, a favorite snack, lunch, hwater, or a book, whatever
         helps you feel comfortable during the session :)
       </>
     ),

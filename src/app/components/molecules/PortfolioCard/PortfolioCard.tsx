@@ -41,6 +41,7 @@ export function PortfolioCard({
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const largeImageUrl = image[0]?.url;
+  console.log("🚀 ~ largeImageUrl:", largeImageUrl)
 
   return (
     <>

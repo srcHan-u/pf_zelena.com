@@ -1,18 +1,6 @@
-"use client";
+import { Category } from "./types";
 
-import React, { useState, Fragment } from "react";
-import {
-  Disclosure,
-  DisclosurePanel,
-  DisclosureButton,
-} from "@headlessui/react";
-import { Plus, Minus, X } from "lucide-react";
-import { Heading } from "../atoms/Heading";
-
-type FAQ = { q: string; a: React.ReactNode };
-type Category = { id: string; title: string; faqs: FAQ[] };
-
-const categories: Category[] = [
+export const categories: Category[] = [
   {
     id: "prep",
     title: "Reservation, Preparation & Session",
@@ -22,27 +10,33 @@ const categories: Category[] = [
         a: (
           <div className="prose max-w-none text-sm md:text-base text-black/80 space-y-4">
             <p>
-              Absolutely — most of the tattoos I create are fully custom and
+              Absolutely! Most of the tattoos I create are fully custom and
               based on the customer’s idea.
             </p>
             <p>
               To make things easier, I always recommend filling out the form on
               my website. It helps structure your request and gives me
-              everything I need to get started — like your idea, preferred
+              everything I need to get started like your idea, preferred
               placement and size, date, and a few references (tattoos, sketches,
-              or anything that inspires you).
+              or anything that inspires you).{" "}
             </p>
             <p>
               From there, I’ll create a design in my own style and vision,
               always based on your original idea and preferences. Designs are
               usually ready one day before the session. I’ll send you Photoshop
               mockups showing how the tattoo might look on the selected body
-              part and in the approximate size — it helps you better visualize
+              part and in the approximate size. It helps you better visualize
               the final result.
             </p>
             <p>
-              And if you’d like to make changes — it’s totally fine and
+              And if you’d like to make changes, it’s totally fine and
               completely free :)
+            </p>
+            <p className="ml-4 bg-gray-100 p-4 rounded-lg">
+              ✨ That said, if you have a special drawing or a personal image
+              you’d like to keep exactly as it is, that’s absolutely okay too.
+              Just mention it in the form, and we’ll discuss it together. I’m
+              always open to finding the best approach for each story.
             </p>
           </div>
         ),
@@ -51,7 +45,7 @@ const categories: Category[] = [
         q: "Is a deposit required? How to send it?",
         a: (
           <div className="prose max-w-none text-sm md:text-base text-black/80 space-y-4">
-            <p>Yes — a $100 deposit is required to confirm your booking.</p>
+            <p>Yes — a $100 deposit is required to confirm your booking. .</p>
             <p>
               You can send it via e-transfer. Full instructions will be provided
               after we confirm the date.
@@ -65,13 +59,13 @@ const categories: Category[] = [
           <div className="prose max-w-none text-sm md:text-base text-black/80 space-y-4">
             <p>
               The duration depends on the idea and other details, but usually a
-              session takes about 2–4 hours — including breaks, photo time, and
-              a bit of chatting in between.
+              session takes about 2–4 hours, including breaks, photo time, and a
+              bit of chatting in between.
             </p>
             <p>
               I always recommend taking the day off if possible. It helps to
               focus on the tattoo without any time pressure. After the session,
-              your body might feel a bit tired — so no work, no parties! Just go
+              your body might feel a bit tired, so no work, no parties! Just go
               home, order pizza, watch a cozy movie.
             </p>
             <p>Your body (and mind) will thank you :)</p>
@@ -116,13 +110,13 @@ const categories: Category[] = [
               </p>
               <ul className="list-disc pl-5 space-y-2">
                 <li>
-                  Get enough sleep and eat well — your body will thank you
-                  later. If the session is long, feel free to bring some snacks
-                  or order delivery to the studio :)
+                  Get enough sleep and eat well. Your body will thank you later.
+                  If the session is long, feel free to bring some snacks or
+                  order delivery to the studio :)
                 </li>
                 <li>
-                  Wear comfortable clothes, and maybe bring a change — sometimes
-                  ink can get messy.
+                  Wear comfortable clothes, and maybe bring a change, because
+                  sometimes ink can get messy.
                 </li>
                 <li>
                   You can also bring a book, headphones, or anything else to
@@ -137,15 +131,15 @@ const categories: Category[] = [
               <ul className="list-disc pl-5 space-y-2">
                 <li>
                   Avoid intense workouts 1–2 days before the session. It helps
-                  to keep your skin and muscles relaxed — that way, the
-                  tattooing process goes smoother and gentler on your body.
+                  to keep your skin and muscles relaxed, that way, the tattooing
+                  process goes smoother and gentler on your body.
                 </li>
                 <li>
                   No alcohol 24–48 hours before the session. It increases blood
                   flow and can affect how your skin reacts to the tattoo.
                 </li>
                 <li>
-                  No need to shave the area — I’ll take care of that during the
+                  No need to shave the area, I’ll take care of that during the
                   session.
                 </li>
               </ul>
@@ -158,7 +152,7 @@ const categories: Category[] = [
         a: (
           <div className="prose max-w-none text-sm md:text-base text-black/80 space-y-4">
             <p>
-              You can pay by e-transfer or cash — whatever’s easier for you.
+              You can pay by e-transfer or cash, whatever is easier for you.
             </p>
             <p>
               The deposit you paid earlier is always included in the final
@@ -183,15 +177,15 @@ const categories: Category[] = [
               <div className="space-y-4">
                 <p>
                   At the end of the session, I’ll cover your tattoo with second
-                  skin — a protective film you’ll keep on for 4–5 days. During
+                  skin. A protective film you’ll keep on for 4–5 days. During
                   this time, you don’t need to do anything: no cream, no
-                  washing. You can shower and wear clothes as usual — the film
+                  washing. You can shower and wear clothes as usual, the film
                   will protect everything.
                 </p>
                 <p>
                   Sometimes, you might notice a bit of ink or plasma collecting
-                  under the film — that’s totally normal, especially with color
-                  tattoos. If it’s just a small amount, don’t worry — it’ll dry
+                  under the film, that’s totally normal, especially with color
+                  tattoos. If it’s just a small amount, don’t worry. It’ll dry
                   up on its own.
                 </p>
                 <p>
@@ -236,7 +230,7 @@ const categories: Category[] = [
                 <p>
                   Repeat this routine 2–3 times a day until the skin finishes
                   peeling. It usually takes 7–10 days, and feels similar to when
-                  your skin peels after sunburn — totally normal.
+                  your skin peels after sunburn, totally normal.
                 </p>
                 <p>
                   Need a visual guide? Watch this step-by-step video {"  "}
@@ -256,17 +250,18 @@ const categories: Category[] = [
               <div className="space-y-4">
                 <p>
                   Once your tattoo has peeled (usually after 7–10 days), the
-                  skin may look healed — but deeper layers are still recovering.
+                  skin may look healed, but deeper layers are still recovering.
                 </p>
                 <p>Full healing takes about 30–40 days.</p>
                 <p>
                   During this time, it’s important to keep your skin
-                  moisturized. You don’t need to follow a strict routine — just
+                  moisturized. You don’t need to follow a strict routine, just
                   apply a light, unscented moisturizer whenever the skin feels
                   dry or tight.
                 </p>
                 <p>
-                  If you’re going out in the sun, don’t forget sunscreen! <br />
+                  If you’re going out in the sun, don’t forget sunscreen!
+                  <br />
                   It protects the colors and helps your tattoo stay bright for
                   years.
                 </p>
@@ -292,8 +287,8 @@ const categories: Category[] = [
         a: (
           <div className="prose max-w-none text-sm md:text-base text-black/80 space-y-4">
             <p>
-              Most tattoos go through the main healing phase in about 7–10 days
-              — when the peeling stops and the skin calms down.
+              Most tattoos go through the main healing phase in about 7–10 days,
+              when the peeling stops and the skin calms down.
             </p>
             <p>
               But full skin recovery takes about 30–40 days, as the deeper
@@ -312,8 +307,9 @@ const categories: Category[] = [
         a: (
           <div className="prose max-w-none text-sm md:text-base text-black/80 space-y-4">
             <p>
-              Yes, and it’s completely normal! <br />
-              Tattoos are done by hand, not by a printer — so slight differences
+              Yes, and it’s completely normal!
+              <br />
+              Tattoos are done by hand, not by a printer, so slight differences
               always happen. I also have my own style, technique, and
               “handwriting” that naturally show up in the final result.
             </p>
@@ -330,15 +326,17 @@ const categories: Category[] = [
         a: (
           <div className="prose max-w-none text-sm md:text-base text-black/80 space-y-4">
             <p>
-              Most tattoos stay beautiful and bright for many years — especially
-              with proper aftercare. <br />
+              Most tattoos stay beautiful and bright for many years, especially
+              with proper aftercare.
+              <br />
               No touch-up is usually needed earlier than 4–5 years. But
               everyone’s skin is different, and sometimes a small part may fade
               or heal unevenly.
             </p>
             <p>
               If you notice anything unusual once it’s fully healed (after 3–4
-              weeks), feel free to message me! <br />
+              weeks), feel free to message me!
+              <br />
               I’ll take a look and help you figure it out!
             </p>
           </div>
@@ -350,19 +348,19 @@ const categories: Category[] = [
           <div className="prose max-w-none text-sm md:text-base text-black/80 space-y-4">
             <p>
               Yes. <br />
-              If your tattoo doesn’t heal perfectly — for example, if a small
-              area fades, doesn’t settle properly, or something just feels off
-              once it’s fully healed (usually after 3–4 weeks) — feel free to
-              message me, and we can schedule a free touch-up once your skin has
-              had at least 4–6 weeks to recover.
+              If your tattoo doesn’t heal perfectly, for example if a small area
+              fades, doesn’t settle properly, or something just feels off once
+              it’s fully healed (usually after 3–4 weeks). Feel free to message
+              me, and we can schedule a free touch-up once your skin has had at
+              least 4–6 weeks to recover.
             </p>
             <p>
               If your tattoo healed well and you’re happy with it, but over time
-              (especially after lots of sun exposure) it starts to fade a little
-              — you’re always welcome to come in for a refresh. In that case,
-              the touch-up would be charged at the minimum session price, since
-              it’s a normal part of how tattoos naturally age, typically after
-              6+ months or more.
+              (especially after lots of sun exposure) it starts to fade a
+              little, you’re always welcome to come in for a refresh. In that
+              case, the touch-up would be charged at the minimum session price,
+              since it’s a normal part of how tattoos naturally age, typically
+              after 6+ months or more.
             </p>
             <p>
               If I did your tattoo while guesting in another city or country,
@@ -385,12 +383,12 @@ const categories: Category[] = [
               around days 3–7. That’s just your skin healing itself.
             </p>
             <p>
-              Don’t scratch or peel the flakes — let your body do its thing.
+              Don’t scratch or peel the flakes and let your body do its thing.
               Keep the area clean, moisturized, and avoid tight clothing or
               rubbing.
             </p>
             <p>
-              If something feels unusual or makes you unsure — just send me a
+              If something feels unusual or makes you unsure, just send me a
               photo. I’ll take a look and let you know if everything’s okay
             </p>
           </div>
@@ -401,23 +399,22 @@ const categories: Category[] = [
         a: (
           <div className="prose max-w-none text-sm md:text-base text-black/80 space-y-4">
             <p>
-              It always depends on the case. <br />
-              If your tattoo is very dark or fairly new, covering it can be
-              quite difficult — especially in my style, which is light,
-              colorful, and painterly. In those situations, full coverage may
-              not be possible. If the tattoo is older (usually 3+ years) and
-              small, there’s a chance we can work something out — especially if
-              your idea fits my artistic approach.
+              It always depends on the case. If your tattoo is very dark or
+              fairly new, covering it can be quite difficult, especially in my
+              style, which is light, colorful, and painterly. In those
+              situations, full coverage may not be possible. If the tattoo is
+              older (usually 3+ years) and small, there’s a chance we can work
+              something out, especially if your idea fits my artistic approach.
             </p>
             <p>
               If you&apos;re open to laser fading, even just 2–3 sessions can
               make a huge difference. It lightens the old ink, allowing for a
-              cleaner, brighter new tattoo — which is especially helpful if you
+              cleaner, brighter new tattoo, which is especially helpful if you
               want to keep it vibrant and colorful. Without fading, dark ink may
               still show through after healing, and touch-ups might be needed.
             </p>
             <p>
-              Because of all this, I take on cover-up projects only rarely — and
+              Because of all this, I take on cover-up projects only rarely, and
               usually only when the old piece is small, light, and compatible
               with my style. Still, feel free to message me! I’m happy to take a
               look and offer honest advice.
@@ -430,13 +427,13 @@ const categories: Category[] = [
           </div>
         ),
       },
+
       {
         q: "Can I get a tattoo over scars or after surgery or burns?",
         a: (
           <div className="prose max-w-none text-sm md:text-base text-black/80 space-y-4">
             <p>
-              Yes — it’s absolutely possible to tattoo over scars or post-burn{" "}
-              <br />
+              Yes, it’s absolutely possible to tattoo over scars or post-burn
               skin. But there are a few important things to keep in mind.
             </p>
             <p>
@@ -446,7 +443,7 @@ const categories: Category[] = [
               touch, it’s most likely ready.
             </p>
             <p>
-              The size doesn’t matter — both small and large scars can be
+              The size doesn’t matter. Both small and large scars can be
               tattooed, as long as they’re healed. I have experience working on
               scar tissue, and while it’s definitely possible, it can be more
               challenging. The structure of the skin (epidermis and dermis) is
@@ -464,7 +461,7 @@ const categories: Category[] = [
             <p>
               Each case is unique, so the best thing to do is send me a clear
               photo of the area. I’ll take a look and let you know what’s
-              possible — and how we can approach the design together
+              possible and how we can approach the design together.
             </p>
           </div>
         ),
@@ -480,7 +477,7 @@ const categories: Category[] = [
         a: (
           <div className="prose max-w-none text-sm md:text-base text-black/80 space-y-4">
             <p>
-              I work primarily with a Cheyenne Sol Nova machine — a reliable and
+              I work primarily with a Cheyenne Sol Nova machine, a reliable and
               precise tool that allows me to create detailed, clean, and
               consistent work. Depending on the session, I use either a
               sterilized reusable grip or a single-use disposable grip.
@@ -491,20 +488,20 @@ const categories: Category[] = [
             </p>
             <p>
               When it comes to inks, I use only professional-grade, certified
-              brands. <br />
-              Here in Canada, my go-to pigments are from Solid Ink, Eternal Ink,
-              and World Famous — depending on the color palette needed for your
-              design.
+              brands. Here in Canada, my go-to pigments are from Solid Ink,
+              Eternal Ink, and World Famous, depending on the color palette
+              needed for your design.
             </p>
           </div>
         ),
       },
+
       {
         q: "How do you ensure everything is sterile and safe?",
         a: (
           <div className="prose max-w-none text-sm md:text-base text-black/80 space-y-4">
             <p>
-              Most of the materials I use during the session are single-use —
+              Most of the materials I use during the session are single-use,
               including gloves, ink caps, machine covers, razors,
               needles/cartridges, and all protective wrap barriers. Most of them
               are opened in front of you, and after the session, everything is
@@ -512,12 +509,13 @@ const categories: Category[] = [
             </p>
             <p>
               For any reusable parts, like machine grips, I use either chemical
-              disinfection or heat sterilization between each client — always
+              disinfection or heat sterilization between each client, always
               following professional hygiene standards.
             </p>
           </div>
         ),
       },
+
       {
         q: "Where is the studio located?",
         a: (
@@ -547,9 +545,8 @@ const categories: Category[] = [
           <div className="prose max-w-none text-sm md:text-base text-black/80 space-y-4">
             <p>
               If you&apos;d like to bring a friend or partner for support,
-              especially if it’s your first tattoo — just let me know in
-              advance. If the studio isn’t too busy that day, it’s usually not a
-              problem!
+              especially if it’s your first tattoo, just let me know in advance.
+              If the studio isn’t too busy that day, it’s usually not a problem!
             </p>
             <p>
               That said, I do recommend coming alone if you can. It helps create
@@ -600,87 +597,3 @@ const categories: Category[] = [
     ],
   },
 ];
-
-export function FAQSection() {
-  const [activeCat, setActiveCat] = useState<string | null>(null);
-
-  return (
-    <section id="faq" className="py-[52px] md:py-[92px]">
-      <div className="container">
-        <div className="flex flex-col md:flex-row justify-between items-start">
-          <div className="max-w-[409px]">
-            <Heading
-              className="text-left"
-              text={
-                <>
-                  Frequently
-                  <br />
-                  Asked Questions
-                </>
-              }
-            />
-          </div>
-          <div className="max-w-[740px] w-full mt-12 md:mt-0 space-y-6">
-            {categories.map((cat) => {
-              const isActive = cat.id === activeCat;
-              return (
-                <div key={cat.id}>
-                  <button
-                    onClick={() => setActiveCat(isActive ? "" : cat.id)}
-                    className={`
-                      w-full text-left p-[10px] md:p-[20px] rounded-[20px]
-                      font-neue-met uppercase text-base md:text-[24px]
-                      font-bold leading-none flex items-center justify-between
-                      ${isActive
-                        ? "bg-gray-200 dark:bg-gray-700 font-semibold"
-                        : "bg-gray-100 dark:bg-gray-800"
-                      }
-                    `}
-                  >
-                    <span>{cat.title}</span>
-                    {isActive && <X size={16} />}
-                  </button>
-
-                  {isActive && (
-                    <div className="mt-[20px] ml-5 space-y-4">
-                      {cat.faqs.map((faq, idx) => (
-                        <Disclosure key={idx}>
-                          {({ open }) => (
-                            <div key={faq.q}>
-                              <DisclosureButton
-                                className={`
-                                  w-full flex justify-between items-center
-                                  py-4 text-left
-                                  text-base md:text-lg
-                                  ${open
-                                    ? "font-semibold"
-                                    : "font-medium text-gray-700 dark:text-gray-300"
-                                  }
-                                `}
-                              >
-                                {faq.q}
-                                {open ? (
-                                  <Minus size={20} />
-                                ) : (
-                                  <Plus size={20} />
-                                )}
-                              </DisclosureButton>
-                              <DisclosurePanel className="prose max-w-none text-sm md:text-base text-black pb-4">
-                                {faq.a}
-                              </DisclosurePanel>
-                              <hr className="border-t border-gray-200 dark:border-gray-700" />
-                            </div>
-                          )}
-                        </Disclosure>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
