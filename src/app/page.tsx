@@ -4,7 +4,7 @@ import { AboutSection } from "@components/organisms/AboutSection";
 import { AppointmentSection } from "@components/organisms/AppointmentSection";
 import { PortfolioSection } from "@components/organisms/PortfolioSection";
 import { EventsSection } from "@components/organisms/EventsSection";
-import { FAQSection } from "@components/organisms/FAQSection";
+import { FAQSection } from "@components/organisms/FAQSection/FAQSection";
 import {
   ContactItem,
   ContactsSection,
@@ -22,13 +22,14 @@ const base = new Airtable({ apiKey }).base(baseId);
 
 export const revalidate = 60;
 
-function formatEvents(items: { location: string; date: string }[]) {
-  function formatDate(input: string) {
+function formatEvents(items: { location: string; date: string | undefined }[]) {
+  function formatDate(input: string | undefined): string {
+    if (!input) return "No date";
     const [, month, day] = input.split("-");
     return `${day}/${month}`;
   }
 
-  return items.map((event) => `${formatDate(event.date)}`).join(" - ");
+  return items.map((event) => `${formatDate(event?.date)}`).join(" - ");
 }
 
 export default async function Home() {
@@ -41,7 +42,10 @@ export default async function Home() {
   );
 
   const selectCityOptions = events
-    .filter((e) => (e.openFor as string).toLowerCase() !== "closed")
+    .filter((e) => {
+      const status = (e.status as string).toLowerCase();
+      return status === "open_with_date" || status === "open_without_date";
+    })
     .map((e) => {
       return {
         value: `${e.location}, ${e.studio}`,
@@ -50,7 +54,10 @@ export default async function Home() {
     });
 
   const heroEvents = events
-    .filter((e) => (e.openFor as string).toLowerCase() !== "closed")
+    .filter((e) => {
+      const status = (e.status as string).toLowerCase();
+      return status === "open_with_date" || status === "open_without_date";
+    })
     .map((e) => ({
       location: `${e.location}, ${e.studio}`,
       date: formatEvents([

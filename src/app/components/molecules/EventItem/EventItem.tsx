@@ -7,7 +7,8 @@ import { EventT } from "./types";
 import { ButtonUI } from "../../atoms/Button";
 import { useModal } from "@/app/context/ModalContext";
 
-function truncateDate(date: string): string {
+function truncateDate(date: string | undefined): string {
+  if (!date) return "No date";
   const item = date.split("-");
   const day = item[1];
   const month = item[2];
@@ -21,10 +22,19 @@ export function EventItem({
   openDateTo,
   location,
   studio,
+  status,
 }: EventT) {
   const { open } = useModal();
-  const status = (openFor as string).toLowerCase();
   const isOpenStatus = status !== "closed" && status !== "soon";
+
+  const dateTitleMap = {
+    open_with_date: `${truncateDate(openDateFrom)} - ${truncateDate(
+      openDateTo
+    )}`,
+    open_without_date: "Bookings open",
+    closed: "Closed",
+    soon: "Coming soon",
+  };
 
   return (
     <div className="relative w-full md:w-[333px] md:rounded-[20px] overflow-hidden no-select cursor-pointer">
@@ -50,7 +60,7 @@ export function EventItem({
 
         <div className="flex flex-col space-y-1 text-white">
           <span className="font-neue-mon font-medium text-xl">
-            {truncateDate(openDateFrom)} - {truncateDate(openDateTo)}{" "}
+            {dateTitleMap[status] || "No date"}
           </span>
           <span className="font-neue-met font-bold text-[28px]">
             {location}
@@ -68,7 +78,13 @@ export function EventItem({
         disabled={!isOpenStatus}
         type="contained"
         color="white"
-        text={isOpenStatus ? `open for ${openFor}` : openFor}
+        text={
+          status === "open_with_date"
+            ? `open for ${openFor}`
+            : status === "open_without_date"
+              ? "bookings open"
+              : status
+        }
       />
     </div>
   );

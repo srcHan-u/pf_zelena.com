@@ -297,29 +297,17 @@ export function ConsultationModal(
                         { value: "thigh", label: "Thigh" },
                         { value: "calf", label: "Calf" },
                         { value: "ankle", label: "Ankle" },
-                        { value: "wrist", label: "Wrist" },
-                        { value: "hand", label: "Hand" },
-                        { value: "foot", label: "Foot" },
                         { value: "shoulder", label: "Shoulder" },
-                        { value: "neck", label: "Neck" },
-                        { value: "face", label: "Face" },
                         { value: "other", label: "Other" },
                         { value: "unsure", label: "Unsure" },
-                        { value: "full_body", label: "Full body" },
-                        { value: "sleeve", label: "Sleeve" },
-                        { value: "half_sleeve", label: "Half sleeve" },
-                        { value: "chest_piece", label: "Chest piece" },
-                        { value: "back_piece", label: "Back piece" },
                         { value: "ribcage", label: "Ribcage" },
-                        { value: "stomach", label: "Stomach" },
                         { value: "side", label: "Side" },
                         { value: "hip", label: "Hip" },
                         { value: "buttocks", label: "Buttocks" },
-                        { value: "knee", label: "Knee" },
                         { value: "elbow", label: "Elbow" },
-                        { value: "armpit", label: "Armpit" },
                         { value: "collarbone", label: "Collarbone" },
                       ];
+
                       const selectedOption = unitsOptions.filter(
                         (opt) =>
                           Array.isArray(field.value) &&
@@ -335,7 +323,6 @@ export function ConsultationModal(
                           options={unitsOptions}
                           value={selectedOption}
                           onChange={(val) => {
-
                             const valuesArray =
                               val && Array.isArray(val)
                                 ? val.map((v) => v.value)

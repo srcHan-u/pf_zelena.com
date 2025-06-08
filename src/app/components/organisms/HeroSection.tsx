@@ -41,7 +41,7 @@ export function HeroSection({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            Hello, I&apos;m Anna
+            Anna Zelenska
           </motion.h1>
           <motion.p
             className="mt-4 md:mt-[50px] text-white text-base md:text-2xl font-work"
@@ -49,7 +49,8 @@ export function HeroSection({
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            Ukrainian tattoo artist who specialized on color micro tattoos.
+            Tattoo artist who creates small color tattoos inspired by fantasy,
+            anime, and art.
           </motion.p>
           <motion.div
             className="mt-12 flex flex-col sm:flex-row gap-4"
