@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import clsx from "clsx";
-import Image from "next/image";
 import { EventT } from "./types";
-import { ButtonUI } from "../../atoms/Button";
+import { ButtonUI } from "@components/atoms/Button";
 import { useModal } from "@/app/context/ModalContext";
+import { ImageUI } from "@components/atoms/ImageUI";
 
 function truncateDate(date: string | undefined): string {
   if (!date) return "No date";
@@ -23,6 +23,7 @@ export function EventItem({
   location,
   studio,
   status,
+  lastModified,
 }: EventT) {
   const { open } = useModal();
   const isOpenStatus = status !== "closed" && status !== "soon";
@@ -50,11 +51,15 @@ export function EventItem({
       >
         <div className="absolute h-[39px] md:h-[87px] top-0 left-0 w-full bg-gradient-to-b from-black/100 to-transparent opacity-30" />
         <div className="absolute h-[39px] md:h-[87px] bottom-0 left-0 w-full bg-gradient-to-t from-black/100 to-transparent opacity-30" />
-        <Image
+        <ImageUI
+          lastModified={lastModified}
           src={image[0].url}
           alt="Flash design"
           fill
-          className="absolute inset-0 object-cover z-[-1]"
+          classNames={{
+            image: "object-cover",
+            container: "absolute inset-0 z-[-1]",
+          }}
           priority
         />
 

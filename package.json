@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "tunnel": "lt --port 3000",
     "analyze": "ANALYZE=true next build",
     "build:trace": "node --trace-deprecation node_modules/.bin/next build"
   },
@@ -41,7 +40,6 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
-    "localtunnel": "^2.0.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

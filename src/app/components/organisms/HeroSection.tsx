@@ -5,10 +5,11 @@ import { useModal } from "@/app/context/ModalContext";
 import { ButtonUI } from "@components/atoms/Button";
 import { LinkUI } from "@components/atoms/LinkUI";
 import { MoveDown } from "lucide-react";
-import { Marquee } from "../molecules/Marquee";
+import { Marquee } from "@components/molecules/Marquee";
+import { VideoUI } from "@components/atoms/VideoUI";
 
 function formatEvents(events: { location: string; date: string }[]) {
-  return events.map((event) => `${event.location} – ${event.date}`).join(" | ");
+  return events.map((event) => `${event.location} – ${event.date}`);
 }
 
 export function HeroSection({
@@ -21,19 +22,22 @@ export function HeroSection({
   return (
     <section id="hero" className="relative w-full h-screen bg-white">
       <div className="absolute inset-0 flex flex-col md:flex-row items-center justify-center bg-white">
-        <div className="relative w-full h-screen bg-black">
-          <video
-            src="/videos/video_web.mp4"
-            autoPlay
-            loop
-            muted
-            className="absolute inset-0 w-full h-full object-cover block"
-          />
-        </div>
+        <VideoUI
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          classNames={{
+            container: "relative w-full h-screen bg-black",
+            video: "absolute inset-0 w-full h-full object-cover block",
+          }}
+          src="/videos/video_web.mp4"
+        />
       </div>
 
       <div className="absolute inset-0 bg-black/50" />
-      <div className="flex flex-col items-center justify-center h-full">
+      <div className="flex flex-col items-center justify-center h-full gap-8">
         <div className="relative z-10 container mx-auto flex flex-col items-center text-center  px-3 sm:px-4">
           <motion.h1
             className="text-white font-neue-met font-bold uppercase leading-tight text-[40px] sm:text-[60px] md:text-[80px]"
@@ -44,7 +48,7 @@ export function HeroSection({
             Anna Zelenska
           </motion.h1>
           <motion.p
-            className="mt-4 md:mt-[50px] text-white text-base md:text-2xl font-work"
+            className="mt-4 md:mt-[30px] text-white text-base md:text-2xl font-work"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
@@ -73,16 +77,18 @@ export function HeroSection({
               className="hover:bg-white hover:!text-black outline outline-white"
             />
           </motion.div>
-          <div className="mt-[127px] overflow-hidden max-w-xl w-full">
+          <div className="mt-[80px] overflow-hidden">
             <span className="text-[10px] sm:text-[12px] md:text-[14px] text-white/30 uppercase font-work">
               Bookings / events
             </span>
-
-            <Marquee speed={40}>
-              <span className="text-white text-xs uppercase space-x-4 flex gap-2 items-center mt-2 font-work text-[10px] sm:text-[12px] md:text-[14px]">
-                {formatEvents(events)}
-              </span>
-            </Marquee>
+            <Marquee
+              list={formatEvents(events)}
+              time={15}
+              classNames={{
+                container: "w-[400px]",
+                item: "text-white text-xs uppercase flex items-center font-work text-[10px] sm:text-[12px] md:text-[14px]",
+              }}
+            />
           </div>
         </div>
         <motion.button

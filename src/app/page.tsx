@@ -1,3 +1,4 @@
+import Airtable from "airtable";
 import { Header } from "@components/molecules/Header";
 import { HeroSection } from "@components/organisms/HeroSection";
 import { AboutSection } from "@components/organisms/AboutSection";
@@ -6,73 +7,59 @@ import { PortfolioSection } from "@components/organisms/PortfolioSection";
 import { EventsSection } from "@components/organisms/EventsSection";
 import { FAQSection } from "@components/organisms/FAQSection/FAQSection";
 import {
-  ContactItem,
   ContactsSection,
+  ContactItem,
 } from "@components/organisms/ContactsSection";
 import { FlashDesignsSection } from "@components/organisms/FlashDesignsSection";
-import Airtable from "airtable";
-import { PortfolioCardT } from "@components/molecules/PortfolioCard/types";
-import { EventT } from "@components/molecules/EventItem/types";
 import { ModalInitializer } from "./context/ModalInitializer";
+import type { PortfolioCardT } from "@components/molecules/PortfolioCard/types";
+import type { EventT } from "@components/molecules/EventItem/types";
 
-const apiKey = process.env.AIRTABLE_API_KEY!;
-const baseId = process.env.AIRTABLE_BASE_ID!;
+const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY! }).base(
+  process.env.AIRTABLE_BASE_ID!
+);
 
-const base = new Airtable({ apiKey }).base(baseId);
-
-export const revalidate = 60;
-
-function formatEvents(items: { location: string; date: string | undefined }[]) {
-  function formatDate(input: string | undefined): string {
-    if (!input) return "No date";
-    const [, month, day] = input.split("-");
-    return `${day}/${month}`;
-  }
-
-  return items.map((event) => `${formatDate(event?.date)}`).join(" - ");
+function formatDateRange(from?: string, to?: string): string {
+  if (!from && !to) return "Bookings open";
+  const fmt = (d?: string) => d?.split("-").slice(1).reverse().join("/") ?? "";
+  return `${fmt(from)} – ${fmt(to)}`;
 }
 
 export default async function Home() {
-  const tables = ["PortfolioTable", "Events", "Contacts", "FlashDesigns"];
   const [portfolio, events, contacts, flashDesigns] = await Promise.all(
-    tables.map(async (name) => {
-      const recs = await base(name).select({ view: "Grid view" }).all();
-      return recs.map((r) => ({ ...r.fields }));
+    ["PortfolioTable", "Events", "Contacts", "FlashDesigns"].map((table) =>
+      base(table)
+        .select({ view: "Grid view" })
+        .all()
+        .then((recs) => recs.map((r) => r.fields))
+    )
+  );
+
+  const allEvents = events as Array<Record<string, unknown>>;
+
+  const openEvents = allEvents.filter(({ status }) =>
+    ["open_with_date", "open_without_date"].includes(
+      (status as string).toLowerCase()
+    )
+  );
+
+  const selectCityOptions = openEvents.map(({ location, studio }) => ({
+    value: `${location}, ${studio}`,
+    label: `${location}, ${studio}`,
+  }));
+
+  const heroEvents = openEvents.map(
+    ({ location, studio, openDateFrom, openDateTo }) => ({
+      location: `${location}, ${studio}`,
+      date: formatDateRange(openDateFrom as string, openDateTo as string),
     })
   );
 
-  const selectCityOptions = events
-    .filter((e) => {
-      const status = (e.status as string).toLowerCase();
-      return status === "open_with_date" || status === "open_without_date";
-    })
-    .map((e) => {
-      return {
-        value: `${e.location}, ${e.studio}`,
-        label: `${e.location}, ${e.studio}`,
-      };
-    });
-
-  const heroEvents = events
-    .filter((e) => {
-      const status = (e.status as string).toLowerCase();
-      return status === "open_with_date" || status === "open_without_date";
-    })
-    .map((e) => ({
-      location: `${e.location}, ${e.studio}`,
-      date: formatEvents([
-        { location: e.location as string, date: e.openDateFrom as string },
-        { location: e.location as string, date: e.openDateTo as string },
-      ]),
-    }));
+  const lastContact = (contacts as ContactItem[]).at(-1)!;
 
   return (
     <div className="flex flex-col min-h-screen">
-      <ModalInitializer
-        options={{
-          selectOptions: selectCityOptions,
-        }}
-      />
+      <ModalInitializer options={{ selectOptions: selectCityOptions }} />
       <Header />
       <main className="flex-grow">
         <HeroSection events={heroEvents} />
@@ -80,11 +67,9 @@ export default async function Home() {
         <AppointmentSection />
         <PortfolioSection items={portfolio as unknown as PortfolioCardT[]} />
         <FlashDesignsSection items={flashDesigns} />
-        <EventsSection items={events as unknown as EventT[]} />
+        <EventsSection items={allEvents as EventT[]} />
         <FAQSection />
-        <ContactsSection
-          item={contacts[contacts.length - 1] as unknown as ContactItem}
-        />
+        <ContactsSection item={lastContact} />
       </main>
     </div>
   );

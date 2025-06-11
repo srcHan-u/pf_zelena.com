@@ -205,7 +205,10 @@ export function ConsultationModal(
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <DialogBackdrop className="fixed inset-0 bg-black/50" />
+            <DialogBackdrop
+              className="fixed inset-0 bg-black/50"
+              onClick={handleClose}
+            />
           </TransitionChild>
 
           <span

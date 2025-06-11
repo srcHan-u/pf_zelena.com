@@ -1,6 +1,6 @@
 import { Heading } from "@components/atoms/Heading";
 import { EventT } from "@components/molecules/EventItem/types";
-import { EventItem } from "../molecules/EventItem/EventItem";
+import { EventItem } from "@components/molecules/EventItem/EventItem";
 
 type Props = {
   items: EventT[];
