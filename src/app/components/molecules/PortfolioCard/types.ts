@@ -7,4 +7,5 @@ export type PortfolioCardT = {
   preferredSizeInchMax: number;
   preferredSizeCmMax: number;
   size: "Medium" | "Large" | "Small";
+  lastModified: string;
 };

@@ -18,4 +18,5 @@ export type EventT = {
   | "October"
   | "November"
   | "December";
+  lastModified: string;
 };

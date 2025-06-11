@@ -120,7 +120,7 @@ export function AppointmentSection() {
 
           <div className="mt-12 sm:mt-18 md:mt-22 xl:mt-26 flex justify-center">
             <ButtonUI
-              text="Get a consultations"
+              text="Get a consultation"
               type="contained"
               color="black"
               onClick={open}

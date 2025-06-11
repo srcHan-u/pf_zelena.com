@@ -7,8 +7,16 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [new URL("https://v5.airtableusercontent.com/**")],
-    formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "v5.airtableusercontent.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+    formats: ["image/webp"],
+    // minimumCacheTTL: 2678400, // 31 days
   },
 };
 

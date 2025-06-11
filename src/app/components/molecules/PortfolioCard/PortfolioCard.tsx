@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { PortfolioCardT } from "./types";
 import { RadiusIcon } from "@components/icons/RadiusIcon";
 import { motion } from "framer-motion";
@@ -8,22 +7,21 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import InnerImageZoom from "react-inner-image-zoom";
 import clsx from "clsx";
+import { ImageUI } from "@components/atoms/ImageUI";
 
 type Props = PortfolioCardT & {
   className?: string;
   alt: string;
 };
 
-function concatValues(values: number[], symbol: string = ""): string {
-  const firstValue = values[0] !== undefined ? values[0] : "";
-  const secondValue = values[1] !== undefined ? values[1] : "";
-  return firstValue && secondValue
-    ? `${firstValue}-${secondValue} ${symbol}`
-    : firstValue
-      ? `${firstValue} ${symbol}`
-      : secondValue
-        ? `${secondValue} ${symbol}`
-        : "";
+function concatValues(values: number[], symbol = ""): string {
+  const parts = values.slice(0, 2).filter((v) => v != null && v !== 0);
+
+  if (parts.length === 0) return "";
+
+  const combined = parts.join("-");
+
+  return symbol ? `${combined} ${symbol}` : combined;
 }
 
 export function PortfolioCard({
@@ -34,14 +32,18 @@ export function PortfolioCard({
   priceDollarMax,
   preferredSizeInchMax,
   preferredSizeCmMax,
+  lastModified,
   size,
   className = "",
   alt = "Portfolio image",
 }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const largeImageUrl = image[0]?.url;
-  console.log("🚀 ~ largeImageUrl:", largeImageUrl)
+  const versionParam = encodeURIComponent(
+    new Date(lastModified || "1970-01-01T00:00:00Z").getTime().toString()
+  );
+
+  const imageUrl = `${image[0]?.url}?v=${versionParam}`;
 
   return (
     <>
@@ -54,10 +56,13 @@ export function PortfolioCard({
         transition={{ duration: 0.3, ease: "easeOut" }}
       >
         <div className="absolute inset-0 bg-black/20 w-full h-full top-0 left-0 z-1" />
-        <Image
-          src={largeImageUrl}
+        <ImageUI
+          src={image[0]?.url}
+          lastModified={lastModified}
           alt={alt}
-          className="object-cover"
+          classNames={{
+            image: "object-cover",
+          }}
           fill
           loading="lazy"
         />
@@ -86,7 +91,7 @@ export function PortfolioCard({
           </div>
         </div>
       </motion.div>
-      {isOpen && largeImageUrl && (
+      {isOpen && imageUrl && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
           onClick={() => setIsOpen(false)}
@@ -104,8 +109,8 @@ export function PortfolioCard({
                 <X size={24} color="black" />
               </button>
               <InnerImageZoom
-                src={largeImageUrl}
-                zoomSrc={largeImageUrl}
+                src={imageUrl}
+                zoomSrc={imageUrl}
                 zoomScale={0.7}
                 zoomType="click"
                 hideHint={false}

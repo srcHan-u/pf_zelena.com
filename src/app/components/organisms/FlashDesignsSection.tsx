@@ -2,10 +2,10 @@
 
 import { useKeenSlider } from "keen-slider/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
 import { Heading } from "@components/atoms/Heading";
 import { ButtonUI } from "../atoms/Button";
 import { useModal } from "@/app/context/ModalContext";
+import { ImageUI } from "../atoms/ImageUI";
 
 async function urlToFile(
   url: string,
@@ -29,6 +29,7 @@ export type FlashDesignT = {
   isDeposit?: boolean;
   preferredPlacement?: string[];
   deposit?: number;
+  lastModified?: string;
 };
 
 type Props = {
@@ -72,7 +73,6 @@ export function FlashDesignsSection({ items }: Props) {
       <div className="relative container">
         <div ref={sliderRef} className="keen-slider">
           {items.map((item, idx) => {
-
             const transformPlacement =
               item.preferredPlacement?.map((placement) => {
                 return placement.replace(" ", "_").toLowerCase();
@@ -85,11 +85,13 @@ export function FlashDesignsSection({ items }: Props) {
                     {item.name}
                   </h3>
                   <div className="relative w-full mb-6 h-[350px]">
-                    <Image
+                    <ImageUI
                       src={item?.image?.[0].url || "/images/placeholder.png"}
                       alt={item?.name || `Flash design ${idx + 1}`}
                       fill
-                      className="object-contain"
+                      classNames={{
+                        image: "object-contain",
+                      }}
                       priority
                     />
                   </div>
@@ -105,8 +107,6 @@ export function FlashDesignsSection({ items }: Props) {
                         "image/png"
                       );
 
-                      // Предположим, что `open({ inspiration: FileList })` ожидает FileList:
-                      // конвертируем в FileList через DataTransfer:
                       const dt = new DataTransfer();
                       dt.items.add(singleFile);
 
@@ -114,7 +114,6 @@ export function FlashDesignsSection({ items }: Props) {
                         placement: transformPlacement,
                         inspiration: dt.files,
                       });
-                      console.log("🚀 ~ onClick={ ~ dt.files:", dt.files);
                     }}
                   />
                 </div>
