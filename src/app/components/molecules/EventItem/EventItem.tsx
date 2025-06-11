@@ -61,6 +61,7 @@ export function EventItem({
             container: "absolute inset-0 z-[-1]",
           }}
           priority
+          unoptimized
         />
 
         <div className="flex flex-col space-y-1 text-white">

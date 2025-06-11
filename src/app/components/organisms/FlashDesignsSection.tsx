@@ -93,6 +93,7 @@ export function FlashDesignsSection({ items }: Props) {
                         image: "object-contain",
                       }}
                       priority
+                      unoptimized
                     />
                   </div>
                   <ButtonUI
