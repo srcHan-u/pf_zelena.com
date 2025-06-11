@@ -3,9 +3,9 @@
 import { useKeenSlider } from "keen-slider/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Heading } from "@components/atoms/Heading";
-import { ButtonUI } from "../atoms/Button";
+import { ButtonUI } from "@components/atoms/Button";
 import { useModal } from "@/app/context/ModalContext";
-import { ImageUI } from "../atoms/ImageUI";
+import { ImageUI } from "@components/atoms/ImageUI";
 
 async function urlToFile(
   url: string,

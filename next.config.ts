@@ -16,7 +16,6 @@ const nextConfig: NextConfig = {
       },
     ],
     formats: ["image/webp"],
-    // minimumCacheTTL: 2678400, // 31 days
   },
 };
 

@@ -5,8 +5,8 @@ import { useModal } from "@/app/context/ModalContext";
 import { ButtonUI } from "@components/atoms/Button";
 import { LinkUI } from "@components/atoms/LinkUI";
 import { MoveDown } from "lucide-react";
-import { Marquee } from "../molecules/Marquee";
-import { VideoUI } from "../atoms/VideoUI";
+import { Marquee } from "@components/molecules/Marquee";
+import { VideoUI } from "@components/atoms/VideoUI";
 
 function formatEvents(events: { location: string; date: string }[]) {
   return events.map((event) => `${event.location} – ${event.date}`);

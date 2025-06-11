@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import { EventT } from "./types";
-import { ButtonUI } from "../../atoms/Button";
+import { ButtonUI } from "@components/atoms/Button";
 import { useModal } from "@/app/context/ModalContext";
-import { ImageUI } from "../../atoms/ImageUI";
+import { ImageUI } from "@components/atoms/ImageUI";
 
 function truncateDate(date: string | undefined): string {
   if (!date) return "No date";
