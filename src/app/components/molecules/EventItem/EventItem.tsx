@@ -54,7 +54,7 @@ export function EventItem({
         <ImageUI
           lastModified={lastModified}
           src={image[0].url}
-          alt="Flash design"
+          alt="Event image"
           fill
           classNames={{
             image: "object-cover",

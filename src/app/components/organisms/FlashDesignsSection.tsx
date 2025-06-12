@@ -88,6 +88,7 @@ export function FlashDesignsSection({ items }: Props) {
                     <ImageUI
                       src={item?.image?.[0].url || "/images/placeholder.png"}
                       alt={item?.name || `Flash design ${idx + 1}`}
+                      lastModified={item?.lastModified}
                       fill
                       classNames={{
                         image: "object-contain",
