@@ -95,6 +95,7 @@ export function FlashDesignsSection({ items }: Props) {
                       }}
                       priority
                       unoptimized
+                      crossOrigin="anonymous"
                     />
                   </div>
                   <ButtonUI

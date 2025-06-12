@@ -66,6 +66,7 @@ export function PortfolioCard({
           fill
           loading="lazy"
           unoptimized
+          crossOrigin="anonymous"
         />
         <div className="max-w-[90%] mx-auto absolute z-2 bottom-[14px] left-0 right-0 text-white font-work font-normal">
           <div className="text-base">{size}</div>

@@ -62,6 +62,7 @@ export function EventItem({
           }}
           priority
           unoptimized
+          crossOrigin="anonymous"
         />
 
         <div className="flex flex-col space-y-1 text-white">
