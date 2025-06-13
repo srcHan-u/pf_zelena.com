@@ -94,8 +94,6 @@ export function FlashDesignsSection({ items }: Props) {
                         image: "object-contain",
                       }}
                       priority
-                      unoptimized
-                      crossOrigin="anonymous"
                     />
                   </div>
                   <ButtonUI
