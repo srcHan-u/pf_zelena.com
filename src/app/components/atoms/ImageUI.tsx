@@ -26,6 +26,13 @@ export const ImageUI = forwardRef<HTMLImageElement, ImageUIProps>(
           alt={props.alt}
           className={classNames?.image}
           src={imageUrl}
+          loader={({
+            src,
+          }: {
+            src: string;
+            width?: number;
+            quality?: number;
+          }) => src} // Custom loader to handle versioning
         />
       </div>
     );

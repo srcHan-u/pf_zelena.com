@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
-import { ModalHost, ModalProvider } from "./context/ModalContext";
 import "./globals.css";
 import "react-day-picker/dist/style.css";
 import "react-inner-image-zoom/lib/styles.min.css";
 import "keen-slider/keen-slider.min.css";
+import type { Metadata } from "next";
+import { ModalHost, ModalProvider } from "./context/ModalContext";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title:
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
       "Anna Zelenska | Tattoo artist in Calgary | Portfolio, Pricing & Booking",
     description:
       "Explore my portfolio, learn about my tattooing approach, and find all the important details about the process, pricing, design preparation, and how to book your session.",
-    url: "https://pf-zelena-com.vercel.app",
+    url: "https://annazelenska.com/",
     siteName: "Anna Zelenska Tattoo",
     locale: "en_US",
     type: "website",
@@ -33,6 +34,7 @@ export default function RootLayout({
         <ModalProvider>
           {children}
           <ModalHost />
+          <SpeedInsights />
         </ModalProvider>
       </body>
     </html>
