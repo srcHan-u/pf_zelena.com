@@ -96,7 +96,7 @@ export function PortfolioCard({
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
           onClick={() => setIsOpen(false)}
         >
-          <div className="relative max-w-[90vw] max-h-[90vh] w-full h-full">
+          <div className="relative max-w-[90vw] max-h-[90vh] w-full h-[55%] md:h-full">
             <div
               className="w-full xl:w-1/2 h-full mx-auto overflow-hidden flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
