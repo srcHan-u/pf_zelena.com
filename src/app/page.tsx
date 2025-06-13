@@ -15,6 +15,8 @@ import { ModalInitializer } from "./context/ModalInitializer";
 import type { PortfolioCardT } from "@components/molecules/PortfolioCard/types";
 import type { EventT } from "@components/molecules/EventItem/types";
 
+export const revalidate = 60; // Revalidate every 60 seconds
+
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY! }).base(
   process.env.AIRTABLE_BASE_ID!
 );
