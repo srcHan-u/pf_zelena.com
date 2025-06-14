@@ -482,7 +482,7 @@ export function ConsultationModal(
                           placeholder="Choose a city"
                           options={options?.selectOptions || ""}
                           onChange={(val) => {
-                            if (!val) {
+                            if (!val || Array.isArray(val)) {
                               field.onChange("");
                               return;
                             }
