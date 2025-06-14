@@ -377,9 +377,7 @@ export function ConsultationModal(
                             error={error?.message}
                             options={unitsOptions}
                             value={selectedOption}
-                            onChange={(
-                              val: { value: string; label: string } | null
-                            ) => {
+                            onChange={(val) => {
                               if (!val || Array.isArray(val)) {
                                 field.onChange("");
                                 return;
@@ -485,9 +483,7 @@ export function ConsultationModal(
                           label="In which city would you like to get a tattoo?"
                           placeholder="Choose a city"
                           options={options?.selectOptions || ""}
-                          onChange={(
-                            val: { value: string; label: string } | null
-                          ) => {
+                          onChange={(val) => {
                             if (!val) {
                               field.onChange("");
                               return;
@@ -534,9 +530,7 @@ export function ConsultationModal(
                           placeholder="Choose an option"
                           options={unitsOptions}
                           value={selectedOption}
-                          onChange={(
-                            val: { value: string; label: string } | null
-                          ) => {
+                          onChange={(val) => {
                             if (!val || Array.isArray(val)) {
                               field.onChange("");
                               return;
