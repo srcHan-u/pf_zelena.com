@@ -43,7 +43,8 @@ export const UploadInputUI = forwardRef<HTMLInputElement, UploadInputUIProps>(
             className="mb-[10px]"
           />
           <span className="text-sm text-center">
-            Drag &amp; drop files or <span className="underline text-black">Browse</span>
+            Drag &amp; drop files or{" "}
+            <span className="underline text-black">Browse</span>
           </span>
           <span className="text-xs text-center">
             Supported formates: JPEG, PNG, WebP, MP4, PDF

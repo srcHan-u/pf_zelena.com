@@ -33,6 +33,7 @@ export function HeroSection({
             video: "absolute inset-0 w-full h-full object-cover block",
           }}
           src="/videos/video_web.mp4"
+          poster="/images/video-loader-poster.png"
         />
       </div>
 
