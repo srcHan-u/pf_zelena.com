@@ -326,9 +326,7 @@ export function ConsultationModal(
                           error={error?.message}
                           options={unitsOptions}
                           value={selectedOption}
-                          onChange={(
-                            val: { value: string; label: string }[] | null
-                          ) => {
+                          onChange={(val) => {
                             const valuesArray =
                               val && Array.isArray(val)
                                 ? val.map((v) => v.value)
