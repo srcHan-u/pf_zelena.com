@@ -480,7 +480,7 @@ export function ConsultationModal(
                           error={error?.message}
                           label="In which city would you like to get a tattoo?"
                           placeholder="Choose a city"
-                          options={options?.selectOptions || ""}
+                          options={options?.selectOptions || []}
                           onChange={(val) => {
                             if (!val || Array.isArray(val)) {
                               field.onChange("");
