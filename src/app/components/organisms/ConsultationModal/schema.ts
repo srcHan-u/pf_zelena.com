@@ -32,8 +32,8 @@ export const ConsultationSchema = z.object({
     .transform((value) => value.toLowerCase()),
   phone: z
     .string()
-    .min(5, "Invalid phone")
-    .max(20, "Invalid phone")
+    .min(8, "Minimum 8 characters")
+    .max(14, "Maximum 14 characters")
     .regex(/^\+?[0-9\s\-()]+$/, "Invalid phone")
     .transform((value) => value.replace(/\s+/g, "").replace(/-/g, "")),
   whichCity: z.string().min(1, "Required"),

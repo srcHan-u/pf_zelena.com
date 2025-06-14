@@ -67,6 +67,7 @@ export function ConsultationModal(
     if (initialValues) {
       reset({
         ...initialValues,
+        sizeUnit: initialValues?.sizeUnit ?? "cm",
       });
     }
   }, [initialValues]);
@@ -345,7 +346,7 @@ export function ConsultationModal(
                       {...register("size")}
                       error={errors.size?.message}
                       placeholder="inch or centimeters"
-                      onChange={(e) => {
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         const value = e.target.value;
                         if (value && !/^\d*\.?\d*$/.test(value)) {
                           e.target.value = value.replace(/[^0-9.]/g, "");
@@ -356,14 +357,17 @@ export function ConsultationModal(
                     <Controller
                       name="sizeUnit"
                       control={control}
+                      defaultValue="cm"
                       render={({ field, fieldState: { error } }) => {
                         const unitsOptions = [
                           { value: "cm", label: "Centimeters" },
                           { value: "inch", label: "Inches" },
                         ];
+
                         const selectedOption = unitsOptions.find(
                           (opt) => opt.value === field.value
                         );
+
                         return (
                           <SelectUI
                             isRequired
@@ -371,7 +375,6 @@ export function ConsultationModal(
                             error={error?.message}
                             options={unitsOptions}
                             value={selectedOption}
-                            defaultValue={unitsOptions[0]}
                             onChange={(val) => {
                               if (!val || Array.isArray(val)) {
                                 field.onChange("");
@@ -382,6 +385,7 @@ export function ConsultationModal(
                                 value: string;
                                 label: string;
                               };
+
                               field.onChange(option.value);
                             }}
                           />
@@ -398,7 +402,7 @@ export function ConsultationModal(
                         required
                         label="Preferable day for an appointment?"
                         value={field.value ? new Date(field.value) : undefined}
-                        onChange={(d) =>
+                        onChange={(d: Date) =>
                           field.onChange(format(d, "yyyy-MM-dd"))
                         }
                         error={errors.date?.message as string}
@@ -425,7 +429,8 @@ export function ConsultationModal(
                                 key={i}
                                 multiple
                                 accept="image/png, image/jpeg, image/webp, mpeg, file/pdf"
-                                onChange={(files) => {
+                                onChange={(files: FileList | null) => {
+                                  if (!files) return;
                                   handleFileChange(files);
                                 }}
                               />
@@ -474,7 +479,7 @@ export function ConsultationModal(
                           isRequired
                           error={error?.message}
                           label="In which city would you like to get a tattoo?"
-                          placeholder="Start typing your city"
+                          placeholder="Choose a city"
                           options={options?.selectOptions || []}
                           onChange={(val) => {
                             if (!val || Array.isArray(val)) {
@@ -510,9 +515,11 @@ export function ConsultationModal(
                         },
                         { value: "other", label: "Other" },
                       ];
+
                       const selectedOption = unitsOptions.find(
                         (opt) => opt.value === field.value
                       );
+
                       return (
                         <SelectUI
                           isRequired
@@ -562,7 +569,8 @@ export function ConsultationModal(
                       type="contained"
                       color="black"
                       text="Get a consultation"
-                      buttonType="submit"
+                      onClick={handleSubmit(onSubmit)}
+                      disabled={isLoading}
                     />
                   </div>
                 </form>
