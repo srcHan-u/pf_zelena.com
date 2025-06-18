@@ -12,8 +12,6 @@ import { useModal } from "@/app/context/ModalContext";
 export type ContactItem = {
   currentLocation: string;
   email: string;
-  instagramLink: string;
-  facebookLink: string;
 };
 
 type Props = {
@@ -69,7 +67,7 @@ export function ContactsSection({ item }: Props) {
 
             <div className="flex space-x-[10px] mt-4">
               <Link
-                href={item?.instagramLink || "#"}
+                href="https://www.instagram.com/zelenskaya.tattoo"
                 target="_blank"
                 rel="noopener"
                 aria-label="Instagram"
@@ -80,7 +78,7 @@ export function ContactsSection({ item }: Props) {
                 />
               </Link>
               <Link
-                href={item?.facebookLink || "#"}
+                href="https://www.facebook.com/share/1CEBuXLkCv/?mibextid=wwXIfr"
                 target="_blank"
                 rel="noopener"
                 aria-label="Facebook"

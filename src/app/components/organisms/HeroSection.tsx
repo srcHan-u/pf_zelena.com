@@ -32,7 +32,10 @@ export function HeroSection({
             container: "relative w-full h-screen bg-black",
             video: "absolute inset-0 w-full h-full object-cover block",
           }}
-          src="/videos/video_web.mp4"
+          source={[
+            { src: "/videos/video_web_min.mp4", type: "video/mp4" },
+            { src: "/videos/video_web_min.webm", type: "video/webm" },
+          ]}
           poster="/images/video-loader-poster.png"
         />
       </div>

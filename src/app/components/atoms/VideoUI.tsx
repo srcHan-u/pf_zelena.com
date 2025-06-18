@@ -3,7 +3,10 @@ import { forwardRef, useEffect } from "react";
 import { VideoHTMLAttributes } from "react";
 
 export interface VideoUIProps extends VideoHTMLAttributes<HTMLVideoElement> {
-  src: string;
+  source: {
+    src: string;
+    type: string;
+  }[];
   classNames?: {
     container?: string;
     video?: string;
@@ -11,7 +14,7 @@ export interface VideoUIProps extends VideoHTMLAttributes<HTMLVideoElement> {
 }
 
 export const VideoUI = forwardRef<HTMLVideoElement, VideoUIProps>(
-  ({ src, classNames, ...props }, ref) => {
+  ({ source, classNames, ...props }, ref) => {
     useEffect(() => {
       if (ref && typeof ref !== "function" && "current" in ref) {
         const videoElement = ref.current;
@@ -26,12 +29,10 @@ export const VideoUI = forwardRef<HTMLVideoElement, VideoUIProps>(
     }, [ref]);
     return (
       <div className={clsx(classNames?.container)}>
-        <video
-          ref={ref}
-          {...props}
-          className={clsx(classNames?.video)}
-        >
-          <source src={src} type="video/mp4" />
+        <video ref={ref} {...props} className={clsx(classNames?.video)}>
+          {source.map((src, index) => (
+            <source key={index} src={src.src} type={src.type} />
+          ))}
           Your browser does not support the video tag.
         </video>
       </div>
