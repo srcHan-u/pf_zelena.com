@@ -8,7 +8,6 @@ import { MoveDown } from "lucide-react";
 import { Marquee } from "@components/molecules/Marquee";
 import { VideoUI } from "@components/atoms/VideoUI";
 import { useFacebookPixel } from "@/app/hooks/useFacebookPixel";
-import { useEffect } from "react";
 
 function formatEvents(events: { location: string; date: string }[]) {
   return events.map((event) => `${event.location} – ${event.date}`);
@@ -20,11 +19,7 @@ export function HeroSection({
   events?: { location: string; date: string }[];
 }) {
   const { open } = useModal();
-  const { trackEvent, trackPageView } = useFacebookPixel();
-
-  useEffect(() => {
-    trackPageView();
-  }, [trackPageView]);
+  const { trackEvent } = useFacebookPixel();
 
   return (
     <section id="hero" className="relative w-full h-screen bg-white">
