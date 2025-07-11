@@ -13,6 +13,7 @@ export function ModalInitializer({ options }: { options: Options }) {
     setOptions({
       selectOptions: options?.selectOptions || [],
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options?.selectOptions]);
   return null;
 }

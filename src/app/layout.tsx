@@ -5,6 +5,7 @@ import "keen-slider/keen-slider.min.css";
 import type { Metadata } from "next";
 import { ModalHost, ModalProvider } from "./context/ModalContext";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { FacebookPixel } from "./components/atoms/FacebookPixel";
 
 export const metadata: Metadata = {
   title:
@@ -35,6 +36,9 @@ export default function RootLayout({
           {children}
           <ModalHost />
           <SpeedInsights />
+          <FacebookPixel
+            pixelId={process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID || ""}
+          />
         </ModalProvider>
       </body>
     </html>

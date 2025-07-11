@@ -23,6 +23,7 @@ import { CalendarInputUI } from "@components/molecules/CalendarInputUI";
 import { format } from "date-fns";
 import { SelectUI } from "@components/atoms/SelectUI";
 import { LoaderUI } from "@components/atoms/LoaderUI";
+import { useFacebookPixel } from "@/app/hooks/useFacebookPixel";
 
 export type ConsultationModalFormData = z.infer<typeof ConsultationSchema>;
 
@@ -50,6 +51,7 @@ export function ConsultationModal(
 ) {
   const { isOpen, close, options } = useModal();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { trackLead } = useFacebookPixel();
   const {
     control,
     register,
@@ -70,6 +72,7 @@ export function ConsultationModal(
         sizeUnit: initialValues?.sizeUnit ?? "cm",
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialValues]);
 
   const [previews, setPreviews] = useState<string[]>([]);
@@ -121,6 +124,13 @@ export function ConsultationModal(
       });
       setIsLoading(false);
       if (!res.ok) throw new Error("Network response was not ok");
+
+      // Track successful form submission
+      trackLead({
+        content_name: "Consultation Form",
+        content_category: "Tattoo Consultation",
+      });
+
       handleClose();
     } catch (err) {
       setIsLoading(false);

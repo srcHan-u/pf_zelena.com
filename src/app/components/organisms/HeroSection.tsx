@@ -7,6 +7,7 @@ import { LinkUI } from "@components/atoms/LinkUI";
 import { MoveDown } from "lucide-react";
 import { Marquee } from "@components/molecules/Marquee";
 import { VideoUI } from "@components/atoms/VideoUI";
+import { useFacebookPixel } from "@/app/hooks/useFacebookPixel";
 
 function formatEvents(events: { location: string; date: string }[]) {
   return events.map((event) => `${event.location} – ${event.date}`);
@@ -18,6 +19,7 @@ export function HeroSection({
   events?: { location: string; date: string }[];
 }) {
   const { open } = useModal();
+  const { trackEvent } = useFacebookPixel();
 
   return (
     <section id="hero" className="relative w-full h-screen bg-white">
@@ -68,7 +70,14 @@ export function HeroSection({
           >
             <ButtonUI
               text="Get a consultation"
-              onClick={open}
+              onClick={() => {
+                trackEvent("Lead", {
+                  content_name: "Get Consultation Button",
+                  content_category: "Hero Section",
+                  button_location: "Hero Section",
+                });
+                open();
+              }}
               type="contained"
               color="white"
               className="hover:bg-transparent hover:text-white outline outline-white"
@@ -79,6 +88,13 @@ export function HeroSection({
               type="outlined"
               color="white"
               className="hover:bg-white hover:!text-black outline outline-white"
+              onClick={() => {
+                trackEvent("ViewContent", {
+                  content_name: "Portfolio Section",
+                  content_category: "Portfolio",
+                  button_location: "Hero Section",
+                });
+              }}
             />
           </motion.div>
           <div className="mt-[80px] overflow-hidden">
@@ -100,6 +116,11 @@ export function HeroSection({
           onClick={() => {
             const nextSection = document.getElementById("about");
             if (nextSection) {
+              trackEvent("ViewContent", {
+                content_name: "About Section",
+                content_category: "About",
+                scroll_direction: "down",
+              });
               nextSection.scrollIntoView({
                 behavior: "smooth",
                 block: "start",
