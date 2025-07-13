@@ -51,7 +51,7 @@ export function ConsultationModal(
 ) {
   const { isOpen, close, options } = useModal();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { trackLead } = useFacebookPixel();
+  const { trackEvent } = useFacebookPixel();
   const {
     control,
     register,
@@ -72,7 +72,7 @@ export function ConsultationModal(
         sizeUnit: initialValues?.sizeUnit ?? "cm",
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialValues]);
 
   const [previews, setPreviews] = useState<string[]>([]);
@@ -126,8 +126,7 @@ export function ConsultationModal(
       if (!res.ok) throw new Error("Network response was not ok");
 
       // Track successful form submission
-      trackLead({
-
+      trackEvent("SubmitApplication", {
         content_name: "Consultation Form",
         content_category: "Tattoo Consultation",
       });
