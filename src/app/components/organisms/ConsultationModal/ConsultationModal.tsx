@@ -127,6 +127,7 @@ export function ConsultationModal(
 
       // Track successful form submission
       trackLead({
+
         content_name: "Consultation Form",
         content_category: "Tattoo Consultation",
       });
