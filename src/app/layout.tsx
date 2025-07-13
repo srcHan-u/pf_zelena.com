@@ -36,9 +36,7 @@ export default function RootLayout({
           {children}
           <ModalHost />
           <SpeedInsights />
-          <FacebookPixel
-            pixelId={process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID || ""}
-          />
+          <FacebookPixel pixelId={"1639692620050648"} />
         </ModalProvider>
       </body>
     </html>
