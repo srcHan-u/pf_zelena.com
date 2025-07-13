@@ -71,11 +71,6 @@ export function HeroSection({
             <ButtonUI
               text="Get a consultation"
               onClick={() => {
-                trackEvent("Lead", {
-                  content_name: "Get Consultation Button",
-                  content_category: "Hero Section",
-                  button_location: "Hero Section",
-                });
                 open();
               }}
               type="contained"
