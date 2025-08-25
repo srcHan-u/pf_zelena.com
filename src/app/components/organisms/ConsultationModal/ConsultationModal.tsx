@@ -24,6 +24,7 @@ import { format } from "date-fns";
 import { SelectUI } from "@components/atoms/SelectUI";
 import { LoaderUI } from "@components/atoms/LoaderUI";
 import { useFacebookPixel } from "@/app/hooks/useFacebookPixel";
+import { PopupConfirm } from "@components/molecules/PopupConfirm";
 
 export type ConsultationModalFormData = z.infer<typeof ConsultationSchema>;
 
@@ -42,16 +43,23 @@ export type ConsultationModalInitialValues = {
   whereDidYouFindMe?: string;
 };
 
-type Props = {
+type ConsultationModalProps = {
   initialValues?: ConsultationModalInitialValues;
 };
 
 export function ConsultationModal(
-  { initialValues }: Props = { initialValues: undefined }
+  { initialValues }: ConsultationModalProps = { initialValues: undefined }
 ) {
   const { isOpen, close, options } = useModal();
+  const [isPopupConfirmOpen, setIsPopupConfirmOpen] = useState<{
+    isOpen: boolean;
+    variant: "success" | "error";
+  }>({
+    isOpen: false,
+    variant: "success",
+  });
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { trackEvent } = useFacebookPixel();
+  const { trackEvent, trackCustomEvent } = useFacebookPixel();
   const {
     control,
     register,
@@ -118,23 +126,30 @@ export function ConsultationModal(
 
     try {
       setIsLoading(true);
-      const res = await fetch("/api/telegram", {
+      const res = await  fetch("/api/telegram", {
         method: "POST",
         body: formData,
+        signal: AbortSignal.timeout?.(3000),
       });
-      setIsLoading(false);
       if (!res.ok) throw new Error("Network response was not ok");
 
-      // Track successful form submission
       trackEvent("SubmitApplication", {
         content_name: "Consultation Form",
         content_category: "Tattoo Consultation",
       });
 
-      handleClose();
+      setIsPopupConfirmOpen({
+        isOpen: true,
+        variant: "success",
+      });
     } catch (err) {
+      console.warn(err);
+      setIsPopupConfirmOpen({ isOpen: true, variant: "error" });
+      trackCustomEvent("Consultation Form Error", {
+        error: err instanceof Error ? err.message : "Unknown error",
+      });
+    } finally {
       setIsLoading(false);
-      console.error(err);
     }
   };
 
@@ -197,6 +212,10 @@ export function ConsultationModal(
   const handleClose = () => {
     handleClearAll();
     close();
+    setIsPopupConfirmOpen({
+      isOpen: false,
+      variant: "success",
+    });
   };
 
   return (
@@ -589,6 +608,7 @@ export function ConsultationModal(
           </TransitionChild>
         </div>
       </Dialog>
+      <PopupConfirm isOpen={isPopupConfirmOpen.isOpen} onClose={handleClose} variant={isPopupConfirmOpen.variant} />
     </Transition>
   );
 }

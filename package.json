@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "analyze": "ANALYZE=true next build",
-    "build:trace": "node --trace-deprecation node_modules/.bin/next build"
+    "build:trace": "node --trace-deprecation node_modules/.bin/next build",
+    "clear": "rm -rf .next && rm -rf node_modules && rm -rf package-lock.json"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.3",
