@@ -129,7 +129,7 @@ export function ConsultationModal(
       const res = await  fetch("/api/telegram", {
         method: "POST",
         body: formData,
-        signal: AbortSignal.timeout?.(3000),
+        signal: AbortSignal.timeout?.(5000),
       });
       if (!res.ok) throw new Error("Network response was not ok");
 
