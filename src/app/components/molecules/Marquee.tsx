@@ -6,7 +6,7 @@ import React, {
   useEffect,
   ReactNode,
 } from "react";
-import { motion, useAnimation, AnimationControls } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import clsx from "clsx";
 
 interface MarqueeProps {
@@ -27,7 +27,7 @@ export function Marquee({
 }: MarqueeProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const singleRef = useRef<HTMLDivElement>(null);
-  const controls: AnimationControls = useAnimation();
+  const controls = useAnimation();
 
   const [containerWidth, setContainerWidth] = useState(0);
   const [singleWidth, setSingleWidth] = useState(0);
