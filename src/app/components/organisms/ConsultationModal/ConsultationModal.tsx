@@ -59,7 +59,7 @@ export function ConsultationModal(
     variant: "success",
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { trackEvent, trackCustomEvent } = useFacebookPixel();
+  const { trackCustomEvent, trackLead } = useFacebookPixel();
   const {
     control,
     register,
@@ -133,9 +133,8 @@ export function ConsultationModal(
       });
       if (!res.ok) throw new Error("Network response was not ok");
 
-      trackEvent("SubmitApplication", {
+      trackLead({
         content_name: "Consultation Form",
-        content_category: "Tattoo Consultation",
       });
 
       setIsPopupConfirmOpen({
