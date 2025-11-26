@@ -59,7 +59,7 @@ export function ConsultationModal(
     variant: "success",
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { trackEvent, trackCustomEvent, trackLead } = useFacebookPixel();
+  const { trackCustomEvent, trackLead } = useFacebookPixel();
   const {
     control,
     register,
