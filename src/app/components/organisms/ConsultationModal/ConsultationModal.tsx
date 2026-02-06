@@ -48,7 +48,7 @@ type ConsultationModalProps = {
 };
 
 export function ConsultationModal(
-  { initialValues }: ConsultationModalProps = { initialValues: undefined }
+  { initialValues }: ConsultationModalProps = { initialValues: undefined },
 ) {
   const { isOpen, close, options } = useModal();
   const [isPopupConfirmOpen, setIsPopupConfirmOpen] = useState<{
@@ -94,7 +94,7 @@ export function ConsultationModal(
     if (initialValues?.inspiration) {
       const fileList = initialValues.inspiration;
       const urls: string[] = Array.from(fileList).map((file) =>
-        URL.createObjectURL(file)
+        URL.createObjectURL(file),
       );
       setPreviews(urls);
 
@@ -117,7 +117,7 @@ export function ConsultationModal(
       } else if (key === "placement") {
         formData.append(
           key,
-          (value as string[]).map((v) => v.replace("_", " ").trim()).join(", ")
+          (value as string[]).map((v) => v.replace("_", " ").trim()).join(", "),
         );
       } else {
         formData.append(key, value as string);
@@ -126,10 +126,10 @@ export function ConsultationModal(
 
     try {
       setIsLoading(true);
-      const res = await  fetch("/api/telegram", {
+      const res = await fetch("/api/telegram", {
         method: "POST",
         body: formData,
-        signal: AbortSignal.timeout?.(5000),
+        signal: AbortSignal.timeout?.(10000),
       });
       if (!res.ok) throw new Error("Network response was not ok");
 
@@ -343,7 +343,7 @@ export function ConsultationModal(
                       const selectedOption = unitsOptions.filter(
                         (opt) =>
                           Array.isArray(field.value) &&
-                          field.value.includes(opt.value)
+                          field.value.includes(opt.value),
                       );
                       return (
                         <SelectUI
@@ -393,7 +393,7 @@ export function ConsultationModal(
                         ];
 
                         const selectedOption = unitsOptions.find(
-                          (opt) => opt.value === field.value
+                          (opt) => opt.value === field.value,
                         );
 
                         return (
@@ -545,7 +545,7 @@ export function ConsultationModal(
                       ];
 
                       const selectedOption = unitsOptions.find(
-                        (opt) => opt.value === field.value
+                        (opt) => opt.value === field.value,
                       );
 
                       return (
@@ -607,7 +607,11 @@ export function ConsultationModal(
           </TransitionChild>
         </div>
       </Dialog>
-      <PopupConfirm isOpen={isPopupConfirmOpen.isOpen} onClose={handleClose} variant={isPopupConfirmOpen.variant} />
+      <PopupConfirm
+        isOpen={isPopupConfirmOpen.isOpen}
+        onClose={handleClose}
+        variant={isPopupConfirmOpen.variant}
+      />
     </Transition>
   );
 }

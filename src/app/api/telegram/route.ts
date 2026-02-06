@@ -10,12 +10,16 @@ function anySignal(signals: AbortSignal[]): AbortSignal {
     if (s.aborted) return s;
     s.addEventListener("abort", onAbort, { once: true });
   }
-  abortController.signal.addEventListener("abort", () => signals.forEach((s) => s.removeEventListener("abort", onAbort)), { once: true });
+  abortController.signal.addEventListener(
+    "abort",
+    () => signals.forEach((s) => s.removeEventListener("abort", onAbort)),
+    { once: true },
+  );
 
   return abortController.signal;
 }
 
-function serverTimeout(ms: number){
+function serverTimeout(ms: number) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), ms);
 
@@ -31,7 +35,7 @@ export async function POST(request: Request) {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME || "localhost";
 
   // 1) Настраиваем общий сигнал: клиентский abort ИЛИ серверный таймаут
-  const { signal: timeoutSignal, clear } = serverTimeout(5000); // 5s SLA
+  const { signal: timeoutSignal, clear } = serverTimeout(10000); // 10s SLA
   const combined = anySignal([request.signal, timeoutSignal]);
 
   try {
@@ -59,12 +63,15 @@ export async function POST(request: Request) {
     Фото референсів (нижче):
     `.trim();
 
-    const sendText = fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: chatId, text }),
-      signal: combined,
-    });
+    const sendText = fetch(
+      `https://api.telegram.org/bot${botToken}/sendMessage`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: chatId, text }),
+        signal: combined,
+      },
+    );
 
     const resText = await sendText;
     if (!resText.ok) {
@@ -81,7 +88,7 @@ export async function POST(request: Request) {
 
       const resDoc = await fetch(
         `https://api.telegram.org/bot${botToken}/sendDocument`,
-        { method: "POST", body: tgForm, signal: combined }
+        { method: "POST", body: tgForm, signal: combined },
       );
 
       if (!resDoc.ok) {
@@ -92,7 +99,7 @@ export async function POST(request: Request) {
     clear();
     return NextResponse.json({ success: true });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     clear();
     const aborted =
@@ -102,7 +109,7 @@ export async function POST(request: Request) {
     const status = aborted ? 499 : 500;
     return NextResponse.json(
       { success: false, error: String(err?.message ?? err) },
-      { status }
+      { status },
     );
   }
 }
