@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   const hostname = process.env.NEXT_PUBLIC_HOSTNAME || "localhost";
 
   // 1) Настраиваем общий сигнал: клиентский abort ИЛИ серверный таймаут
-  const { signal: timeoutSignal, clear } = serverTimeout(5000); // 5s SLA
+  const { signal: timeoutSignal, clear } = serverTimeout(10000); // 5s SLA
   const combined = anySignal([request.signal, timeoutSignal]);
 
   try {
