@@ -126,9 +126,13 @@ export function ConsultationModal(
 
     try {
       setIsLoading(true);
-      const res = await fetch("/api/telegram", {
+      const res = await fetch("/api/telegram-v2", {
         method: "POST",
         body: formData,
+        cache: "no-store",
+        headers: {
+          "Cache-Control": "no-store",
+        },
       });
       if (!res.ok) throw new Error("Network response was not ok");
 
