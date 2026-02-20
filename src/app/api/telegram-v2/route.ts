@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
 export const runtime = "edge";
-// export const dynamic = "force-dynamic";
-// export const revalidate = 0;
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function POST(request: Request) {
   const botToken = process.env.TELEGRAM_BOT_TOKEN!;

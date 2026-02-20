@@ -15,11 +15,21 @@ import { ModalInitializer } from "./context/ModalInitializer";
 import type { PortfolioCardT } from "@components/molecules/PortfolioCard/types";
 import type { EventT } from "@components/molecules/EventItem/types";
 
+export const runtime = "nodejs";
 export const revalidate = 60; // Revalidate every 60 seconds
 
-const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY! }).base(
-  process.env.AIRTABLE_BASE_ID!
-);
+const apiKey = process.env.AIRTABLE_API_KEY;
+const baseId = process.env.AIRTABLE_BASE_ID;
+
+async function safeLoad(base: Airtable.Base, table: string) {
+  try {
+    const recs = await base(table).select({ view: "Grid view" }).all();
+    return recs.map((r) => r.fields);
+  } catch (e) {
+    console.error(`Airtable load failed: ${table}`, e);
+    return [];
+  }
+}
 
 function formatDateRange(from?: string, to?: string): string {
   if (!from && !to) return "Bookings open";
@@ -28,21 +38,26 @@ function formatDateRange(from?: string, to?: string): string {
 }
 
 export default async function Home() {
-  const [portfolio, events, contacts, flashDesigns] = await Promise.all(
-    ["PortfolioTable", "Events", "Contacts", "FlashDesigns"].map((table) =>
-      base(table)
-        .select({ view: "Grid view" })
-        .all()
-        .then((recs) => recs.map((r) => r.fields))
-    )
-  );
+  if (!apiKey || !baseId) {
+    console.error("Missing AIRTABLE env vars");
+    return <div />;
+  }
+
+  const base = new Airtable({ apiKey }).base(baseId);
+
+  const [portfolio, events, contacts, flashDesigns] = await Promise.all([
+    safeLoad(base, "PortfolioTable"),
+    safeLoad(base, "Events"),
+    safeLoad(base, "Contacts"),
+    safeLoad(base, "FlashDesigns"),
+  ]);
 
   const allEvents = events as Array<Record<string, unknown>>;
 
   const openEvents = allEvents.filter(({ status }) =>
     ["open_with_date", "open_without_date"].includes(
-      (status as string).toLowerCase()
-    )
+      (status as string).toLowerCase(),
+    ),
   );
 
   const selectCityOptions = openEvents.map(({ location, studio }) => ({
@@ -54,7 +69,7 @@ export default async function Home() {
     ({ location, studio, openDateFrom, openDateTo }) => ({
       location: `${location}, ${studio}`,
       date: formatDateRange(openDateFrom as string, openDateTo as string),
-    })
+    }),
   );
 
   const lastContact = (contacts as ContactItem[]).at(-1)!;
