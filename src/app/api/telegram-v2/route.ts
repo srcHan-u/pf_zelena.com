@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 
 export const runtime = "edge";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function POST(request: Request) {
   const botToken = process.env.TELEGRAM_BOT_TOKEN!;
@@ -59,7 +61,15 @@ export async function POST(request: Request) {
       }
     }
 
-    return NextResponse.json({ success: true });
+    const res = NextResponse.json(
+      { success: true },
+      {
+        headers: {
+          "Cache-Control": "no-store, max-age=0",
+        },
+      },
+    );
+    return res;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
